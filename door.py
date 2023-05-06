@@ -8,6 +8,26 @@ MOTOR_ENABLE = 25
 MOTOR_DELAY = 15  # time to run in seconds
 
 
+def _setup_pins_output():
+    # print("setting up pins")
+    # GPIO.setmode(GPIO.BCM)
+    # GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+    # GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+    # GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+    # # not sure why this is required
+    # GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+    GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+    GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+    GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+    GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
+
+    p = GPIO.PWM(MOTOR_ENABLE, 1000)
+    p.start(100)
+
+
 class Door:
     def __init__(self):
         """Creates the Door that is not moving and stops it"""
@@ -23,7 +43,7 @@ class Door:
         self._is_moving = True
         self._is_open = True
 
-        self._setup_pins_output()
+        _setup_pins_output()
         GPIO.output(MOTOR_FORWARD, GPIO.HIGH)
         threading.Timer(MOTOR_DELAY, self._stop_motor).start()
 
@@ -38,7 +58,7 @@ class Door:
         # threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         # print("done closing in door")
 
-        self._setup_pins_output()
+        _setup_pins_output()
 
         # run motor backward for 10 seconds
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
@@ -57,24 +77,6 @@ class Door:
         return self._is_open
 
     # Sets up the pins to move the motor, should be cleaned up after use
-    def _setup_pins_output(self):
-        # print("setting up pins")
-        # GPIO.setmode(GPIO.BCM)
-        # GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-        # GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-        # GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-        # # not sure why this is required
-        # GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
-
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
-        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
-
-        p = GPIO.PWM(MOTOR_ENABLE, 1000)
-        p.start(100)
 
     # Stops the motor and runs pin cleanup
     # Requires pins to be set up
