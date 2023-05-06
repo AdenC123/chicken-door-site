@@ -48,8 +48,7 @@ class Door:
         # print("done closing in door")
 
         _setup_pins_output()
-        p = GPIO.PWM(MOTOR_ENABLE, 1000)
-        p.start(100)
+        GPIO.PWM(MOTOR_ENABLE, 1000).start()
 
         # run motor backward for 10 seconds
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
