@@ -39,6 +39,7 @@ def open_door():
         print("Opening...")
         motor.forward()
         stop_after(MOTOR_DELAY)
+    return ""
 
 
 # Close the door manually (if it isn't currently moving)
@@ -50,6 +51,7 @@ def close_door():
         print("Closing...")
         motor.backward()
         stop_after(MOTOR_DELAY)
+    return ""
 
 
 # start the api
