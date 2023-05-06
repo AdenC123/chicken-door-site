@@ -41,6 +41,7 @@ def run_then_stop(motor_pin: int, delay: int):
 
 # Returns whether the motor is currently moving
 def motor_is_moving():
+    GPIO.setmode(GPIO.BCM)
     return GPIO.input(MOTOR_FORWARD) == GPIO.HIGH \
         or GPIO.input(MOTOR_BACKWARD) == GPIO.HIGH
 
