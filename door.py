@@ -31,7 +31,11 @@ class Door:
         self._is_moving = True
         self._is_open = False
 
-        self._setup_pins_output()
+        # self._setup_pins_output()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
         # not sure why this is required
         p = GPIO.PWM(MOTOR_ENABLE, 1000)
         p.start(100)
