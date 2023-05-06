@@ -49,9 +49,9 @@ class Door:
     def _setup_pins_output():
         print("setting up pins")
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
         # not sure why this is required
         GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
 
