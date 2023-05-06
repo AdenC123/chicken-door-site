@@ -9,14 +9,14 @@ API_PORT = 5200
 
 MOTOR_FORWARD = 23
 MOTOR_BACKWARD = 24
-MOTOR_ENABLE = 25
-MOTOR_DELAY = 5  # time to run in seconds
+# MOTOR_ENABLE = 25
+MOTOR_DELAY = 10  # time to run in seconds
 
 # flask initialization
 app = Flask(__name__)
 
 # motor setup with ports
-motor = Motor(MOTOR_FORWARD, MOTOR_BACKWARD, MOTOR_ENABLE)
+motor = Motor(MOTOR_FORWARD, MOTOR_BACKWARD)
 
 
 # Stops the motor
