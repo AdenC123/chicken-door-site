@@ -31,7 +31,7 @@ def stop_after(delay: int):
 
 
 # Open the door manually (if it isn't currently moving)
-@app.route('/open', methods='POST')
+@app.route('/open', methods=['POST'])
 def open_door():
     if motor.is_active:
         print("Door already open!")
@@ -42,7 +42,7 @@ def open_door():
 
 
 # Close the door manually (if it isn't currently moving)
-@app.route('/close', methods='POST')
+@app.route('/close', methods=['POST'])
 def close_door():
     if motor.is_active:
         print("Door already closed!")
