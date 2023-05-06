@@ -14,8 +14,8 @@ class Door:
         self._is_moving = False
         self._is_open = None  # unknown state when app starts
 
-        self._setup_pins_output()
-        self._stop_motor()
+        # self._setup_pins_output()
+        # self._stop_motor()
 
     def open(self):
         """Opens the door and stops the motor"""
