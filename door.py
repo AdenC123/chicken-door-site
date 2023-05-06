@@ -72,8 +72,6 @@ class Door:
     @staticmethod
     def _setup_pins_output():
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
-        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
