@@ -8,15 +8,6 @@ MOTOR_ENABLE = 25
 MOTOR_DELAY = 15  # time to run in seconds
 
 
-def _setup_pins_output():
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-    GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-    GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-    GPIO.output(MOTOR_FORWARD, GPIO.LOW)
-    GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
-
-
 class Door:
     def __init__(self):
         """Creates the Door that is not moving and stops it"""
@@ -32,7 +23,7 @@ class Door:
         self._is_moving = True
         self._is_open = True
 
-        _setup_pins_output()
+        self._setup_pins_output()
         GPIO.output(MOTOR_FORWARD, GPIO.HIGH)
         threading.Timer(MOTOR_DELAY, self._stop_motor).start()
 
@@ -47,7 +38,7 @@ class Door:
         # threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         # print("done closing in door")
 
-        _setup_pins_output()
+        self._setup_pins_output()
         p = GPIO.PWM(MOTOR_ENABLE, 1000)
         p.start(100)
 
@@ -77,3 +68,12 @@ class Door:
         GPIO.cleanup()
         self._is_moving = False
         print('Motor stopped')  # TODO remove?
+
+    @staticmethod
+    def _setup_pins_output():
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
