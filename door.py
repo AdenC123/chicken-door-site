@@ -14,8 +14,8 @@ class Door:
         self._is_moving = False
         self._is_open = None  # unknown state when app starts
 
-        self._setup_pins_output()
-        self._stop_motor()
+        # self._setup_pins_output()
+        # self._stop_motor()
 
     def open(self):
         """Opens the door and stops the motor"""
@@ -32,6 +32,7 @@ class Door:
         self._is_open = False
 
         self._setup_pins_output()
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
         GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         print("done closing in door")
@@ -47,13 +48,23 @@ class Door:
     # Sets up the pins to move the motor, should be cleaned up after use
     @staticmethod
     def _setup_pins_output():
-        print("setting up pins")
+        # print("setting up pins")
+        # GPIO.setmode(GPIO.BCM)
+        # GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+        # GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+        # GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+        # # not sure why this is required
+        # GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
+
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-        # not sure why this is required
-        GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
+        GPIO.setup(MOTOR_FORWARD,GPIO.OUT)
+        GPIO.setup(MOTOR_BACKWARD,GPIO.OUT)
+        GPIO.setup(MOTOR_ENABLE,GPIO.OUT)
+        GPIO.output(MOTOR_FORWARD,GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD,GPIO.LOW)
+
+        p = GPIO.PWM(MOTOR_ENABLE,1000)
+        p.start(100)
 
     # Stops the motor and runs pin cleanup
     # Requires pins to be set up
