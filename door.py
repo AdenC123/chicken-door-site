@@ -37,28 +37,16 @@ class Door:
         # GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         # threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         # print("done closing in door")
-        in1 = 24
-        in2 = 23
-        en = 25
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(in1,GPIO.OUT)
-        GPIO.setup(in2,GPIO.OUT)
-        GPIO.setup(en,GPIO.OUT)
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.LOW)
-
-        p = GPIO.PWM(en,1000)
-        p.start(100)
+        self._setup_pins_output()
 
         # run motor backward for 10 seconds
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.HIGH)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         time.sleep(20)
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.LOW)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
         GPIO.cleanup()
-
 
     def is_moving(self):
         """Returns whether the door is currently moving"""
@@ -80,13 +68,13 @@ class Door:
         # GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD,GPIO.OUT)
-        GPIO.setup(MOTOR_BACKWARD,GPIO.OUT)
-        GPIO.setup(MOTOR_ENABLE,GPIO.OUT)
-        GPIO.output(MOTOR_FORWARD,GPIO.LOW)
-        GPIO.output(MOTOR_BACKWARD,GPIO.LOW)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
 
-        p = GPIO.PWM(MOTOR_ENABLE,1000)
+        p = GPIO.PWM(MOTOR_ENABLE, 1000)
         p.start(100)
 
     # Stops the motor and runs pin cleanup
