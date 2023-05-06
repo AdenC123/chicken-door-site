@@ -43,7 +43,6 @@ class Door:
         p.start(100)
 
         # run motor backward for 10 seconds
-        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
         GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         time.sleep(20)
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
@@ -58,20 +57,20 @@ class Door:
         """Returns whether the door is currently open, or None if unknown"""
         return self._is_open
 
-    # Sets up the pins to move the motor, should be cleaned up after use
+    @staticmethod
+    def _setup_pins_output():
+        """Sets up the pins to move the motor, should be cleaned up after use"""
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
 
-    # Stops the motor and runs pin cleanup
-    # Requires pins to be set up
     def _stop_motor(self):
+        """Stops the motor and runs pin cleanup. Requires pins to be set up"""
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
         GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
         GPIO.cleanup()
         self._is_moving = False
         print('Motor stopped')  # TODO remove?
 
-    @staticmethod
-    def _setup_pins_output():
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
+
