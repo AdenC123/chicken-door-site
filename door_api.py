@@ -19,15 +19,24 @@ app = Flask(__name__)
 motor = Motor(MOTOR_FORWARD, MOTOR_BACKWARD, MOTOR_ENABLE)
 
 
+# Stops the motor
+def stop_motor():
+    motor.stop()
+    print("Motor stopped")
+
+
 # Stops the motor after a delay
 def stop_after(delay: int):
-    threading.Timer(delay, motor.stop).start()
+    threading.Timer(delay, stop_motor).start()
 
 
 # Open the door manually (if it isn't currently moving)
 @app.route('/open', methods='POST')
 def open_door():
-    if not motor.is_active:
+    if motor.is_active:
+        print("Door already open!")
+    else:
+        print("Opening...")
         motor.forward()
         stop_after(MOTOR_DELAY)
 
@@ -35,7 +44,10 @@ def open_door():
 # Close the door manually (if it isn't currently moving)
 @app.route('/close', methods='POST')
 def close_door():
-    if not motor.is_active:
+    if motor.is_active:
+        print("Door already closed!")
+    else:
+        print("Closing...")
         motor.backward()
         stop_after(MOTOR_DELAY)
 
