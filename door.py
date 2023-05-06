@@ -34,6 +34,7 @@ class Door:
         self._setup_pins_output()
         GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         threading.Timer(MOTOR_DELAY, self._stop_motor).start()
+        print("done closing in door")
 
     def is_moving(self):
         """Returns whether the door is currently moving"""
@@ -46,6 +47,7 @@ class Door:
     # Sets up the pins to move the motor, should be cleaned up after use
     @staticmethod
     def _setup_pins_output():
+        print("setting up pins")
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
