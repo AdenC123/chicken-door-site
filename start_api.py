@@ -17,8 +17,6 @@ door = Door()
 def open_door():
     if door.is_moving():
         return "Cannot open, door is moving!"
-    if door.is_open():
-        return "Door is already open!"
 
     door.open()
     return "Opening..."
@@ -29,8 +27,6 @@ def open_door():
 def close_door():
     if door.is_moving():
         return "Cannot close, door is moving!"
-    if not door.is_open():
-        return "Door is already closed!"
 
     door.close()
     return "Closing..."
