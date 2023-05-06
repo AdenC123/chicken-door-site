@@ -39,6 +39,7 @@ class Door:
         # not sure why this is required
         p = GPIO.PWM(MOTOR_ENABLE, 1000)
         p.start(100)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
         GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
         threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         print("done closing in door")
