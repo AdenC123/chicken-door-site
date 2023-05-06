@@ -39,13 +39,18 @@ def run_then_stop(motor_pin: int, delay: int):
     threading.Timer(delay, stop_motor).start()
 
 
+# Returns True if the pin is HIGH, False if LOW, performs cleanup
+def read_pin(pin: int):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(pin, GPIO.IN)
+    is_high = GPIO.input(pin) == GPIO.HIGH
+    GPIO.cleanup()
+    return is_high
+
+
 # Returns whether the motor is currently moving
 def motor_is_moving():
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(MOTOR_FORWARD, GPIO.IN)
-    GPIO.setup(MOTOR_BACKWARD, GPIO.IN)
-    return GPIO.input(MOTOR_FORWARD) == GPIO.HIGH \
-        or GPIO.input(MOTOR_BACKWARD) == GPIO.HIGH
+    return read_pin(MOTOR_FORWARD) or read_pin(MOTOR_BACKWARD)
 
 
 # Open the door manually (if it isn't currently moving)
