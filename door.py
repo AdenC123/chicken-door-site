@@ -9,14 +9,6 @@ MOTOR_DELAY = 15  # time to run in seconds
 
 
 def _setup_pins_output():
-    # print("setting up pins")
-    # GPIO.setmode(GPIO.BCM)
-    # GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
-    # GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
-    # GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
-    # # not sure why this is required
-    # GPIO.PWM(MOTOR_ENABLE, 1000).start(100)
-
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
     GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
@@ -58,7 +50,15 @@ class Door:
         # threading.Timer(MOTOR_DELAY, self._stop_motor).start()
         # print("done closing in door")
 
-        _setup_pins_output()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(MOTOR_FORWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_BACKWARD, GPIO.OUT)
+        GPIO.setup(MOTOR_ENABLE, GPIO.OUT)
+        GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+        GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
+
+        p = GPIO.PWM(MOTOR_ENABLE, 1000)
+        p.start(100)
 
         # run motor backward for 10 seconds
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
