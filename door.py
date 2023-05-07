@@ -1,5 +1,6 @@
 import threading
 import RPi.GPIO as GPIO
+import time
 
 MOTOR_FORWARD = 24
 MOTOR_BACKWARD = 23
@@ -14,34 +15,15 @@ class Door:
         self._is_moving = False
         self._is_open = None  # unknown state when app starts
 
-        # self._setup_pins_output()
-        # self._stop_motor()
-
     def open(self):
         """Opens the door and stops the motor"""
-        self._is_moving = True
         self._is_open = True
-
-        self._setup_pins_output()
-        GPIO.output(MOTOR_FORWARD, GPIO.HIGH)
-        threading.Timer(MOTOR_DELAY, self._stop_motor).start()
+        threading.Thread(target=self._thread_run_motor, args=[MOTOR_FORWARD]).start()
 
     def close(self):
         """Closes the door and stops the motor"""
-        # self._is_moving = True
-        # self._is_open = False
-        #
-        # self._setup_pins_output()
-        # GPIO.output(MOTOR_FORWARD, GPIO.LOW)
-        # GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
-        # threading.Timer(MOTOR_DELAY, self._stop_motor).start()
-        # print("done closing in door")
-
-        self._setup_pins_output()
-        p = GPIO.PWM(MOTOR_ENABLE, 1000)
-        p.start(100)
-        GPIO.output(MOTOR_BACKWARD, GPIO.HIGH)
-        threading.Timer(MOTOR_DELAY, self._stop_motor).start()
+        self._is_open = False
+        threading.Thread(target=self._thread_run_motor, args=[MOTOR_BACKWARD]).start()
 
     def is_moving(self):
         """Returns whether the door is currently moving"""
@@ -51,20 +33,40 @@ class Door:
         """Returns whether the door is currently open, or None if unknown"""
         return self._is_open
 
-    @staticmethod
-    def _setup_pins_output():
-        """Sets up the pins to move the motor, should be cleaned up after use"""
+    def _thread_run_motor(self, pin: int):
+        """Sets pin to HIGH for MOTOR_DELAY seconds, then stops the motor."""
+        self._is_moving = True
+        # set up pins and pwm
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
-
-    def _stop_motor(self):
-        """Stops the motor and runs pin cleanup. Requires pins to be set up"""
+        p = GPIO.PWM(MOTOR_ENABLE, 1000)
+        p.start(100)
+        # run motor
+        GPIO.output(pin, GPIO.HIGH)
+        time.sleep(MOTOR_DELAY)
+        # stop
         GPIO.output(MOTOR_FORWARD, GPIO.LOW)
         GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
         GPIO.cleanup()
         self._is_moving = False
-        print('Motor stopped')  # TODO remove?
+        print("motor stopped")
+
+    # @staticmethod
+    # def _setup_pins_output():
+    #     """Sets up the pins to move the motor, should be cleaned up after use"""
+    #     GPIO.setmode(GPIO.BCM)
+    #     GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
+    #     GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
+    #     GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
+    #
+    # def _stop_motor(self):
+    #     """Stops the motor and runs pin cleanup. Requires pins to be set up"""
+    #     GPIO.output(MOTOR_FORWARD, GPIO.LOW)
+    #     GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
+    #     GPIO.cleanup()
+    #     self._is_moving = False
+    #     print('Motor stopped')
 
 
