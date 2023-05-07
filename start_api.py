@@ -13,9 +13,9 @@ API_PORT = 5200
 door = Door()
 
 
-# Open the door manually (if it isn't currently moving)
 @app.route('/open', methods=['POST'])
 def open_door():
+    """Open the door manually (if it isn't currently moving)"""
     if door.is_moving():
         # door already moving, unsuccessful
         return json.dumps({
@@ -30,9 +30,9 @@ def open_door():
     })
 
 
-# Close the door manually (if it isn't currently moving)
 @app.route('/close', methods=['POST'])
 def close_door():
+    """Close the door manually (if it isn't currently moving)"""
     if door.is_moving():
         # door already moving, unsuccessful
         return json.dumps({
@@ -44,6 +44,16 @@ def close_door():
     return json.dumps({
         "success": True,
         "delay": door.get_delay()
+    })
+
+
+@app.route('/state', methods=['GET'])
+def get_state():
+    return json.dumps({
+        "open": door.is_open(),
+        "moving": door.is_moving(),
+        "openTime": 0000,  # TODO get these from cron module
+        "closeTime": 0000
     })
 
 
