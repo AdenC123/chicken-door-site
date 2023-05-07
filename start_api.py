@@ -1,5 +1,6 @@
 # Start the API for direct door control.
 from flask import Flask
+import json
 
 from door import Door
 
@@ -16,20 +17,34 @@ door = Door()
 @app.route('/open', methods=['POST'])
 def open_door():
     if door.is_moving():
-        return "Cannot open, door is moving!"
+        # door already moving, unsuccessful
+        return json.dumps({
+            "success": False,
+            "delay": 0
+        })
 
     door.open()
-    return "Opening..."
+    return json.dumps({
+        "success": True,
+        "delay": door.get_delay()
+    })
 
 
 # Close the door manually (if it isn't currently moving)
 @app.route('/close', methods=['POST'])
 def close_door():
     if door.is_moving():
-        return "Cannot close, door is moving!"
+        # door already moving, unsuccessful
+        return json.dumps({
+            "success": False,
+            "delay": 0
+        })
 
     door.close()
-    return "Closing..."
+    return json.dumps({
+        "success": True,
+        "delay": door.get_delay()
+    })
 
 
 # start the api

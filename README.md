@@ -11,9 +11,11 @@
 - [x] [H-bridge for motor control](https://www.amazon.com/Qunqi-Controller-Module-Stepper-Arduino/dp/B014KMHSW6)
 
 ## Door API
-- `POST /open` opens the door, returns JSON with "delay" key (time motor will move for)
+- `POST /open` opens the door, returns JSON with:
+  - `"success":` true if door is opening, false if door could not be opened
+  - `"delay":` time motor will move for or 0 if unsuccessful, integer
 - `POST /close` closes the door, same JSON as open
-- `POST /time` with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string
+- `POST /time` updates times with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string
 - `GET /state` returns JSON as follows:
   - `"open":` `null` if unknown state, `true` if open, `false` if closed
   - `"moving":` `true` or `false`

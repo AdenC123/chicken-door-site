@@ -33,6 +33,10 @@ class Door:
         """Returns whether the door is currently open, or None if unknown"""
         return self._is_open
 
+    def get_delay(self):
+        """Returns the amount of time the motor runs for when opening/closing"""
+        return MOTOR_DELAY
+
     def _thread_run_motor(self, pin: int):
         """Sets pin to HIGH for MOTOR_DELAY seconds, then stops the motor."""
         self._is_moving = True
