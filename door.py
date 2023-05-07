@@ -53,20 +53,4 @@ class Door:
         self._is_moving = False
         print("motor stopped")
 
-    # @staticmethod
-    # def _setup_pins_output():
-    #     """Sets up the pins to move the motor, should be cleaned up after use"""
-    #     GPIO.setmode(GPIO.BCM)
-    #     GPIO.setup(MOTOR_FORWARD, GPIO.OUT, initial=GPIO.LOW)
-    #     GPIO.setup(MOTOR_BACKWARD, GPIO.OUT, initial=GPIO.LOW)
-    #     GPIO.setup(MOTOR_ENABLE, GPIO.OUT, initial=GPIO.LOW)
-    #
-    # def _stop_motor(self):
-    #     """Stops the motor and runs pin cleanup. Requires pins to be set up"""
-    #     GPIO.output(MOTOR_FORWARD, GPIO.LOW)
-    #     GPIO.output(MOTOR_BACKWARD, GPIO.LOW)
-    #     GPIO.cleanup()
-    #     self._is_moving = False
-    #     print('Motor stopped')
-
 
