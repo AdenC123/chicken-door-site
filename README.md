@@ -16,11 +16,11 @@
   - `"success":` true if door is opening, false if door could not be opened
   - `"delay":` time motor will move for or 0 if unsuccessful, integer
 - `POST /close` closes the door, same JSON as open
-- `POST /time` updates times with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string
+- `POST /time` updates times with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string split by a colon
 - `GET /state` returns JSON as follows:
   - `"open":` `null` if unknown state, `true` if open, `false` if closed
   - `"moving":` `true` or `false`
-  - `"openTime"` and `"closeTime":` times formatted in 24hr, with 4 digits as string
+  - `"openTime"` and `"closeTime":` times formatted in 24hr, with 4 digits as string split by a colon
 
 ## Wifi troubleshooting
 Problem: Wifi does not stay connected in the long term (about a day).
