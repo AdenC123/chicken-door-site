@@ -11,7 +11,10 @@ class TimeFormatException(Exception):
 
 
 def set_times(open_time: str, close_time: str):
-    """Set the times for the door to open and close in cron."""
+    """
+    Set the times for the door to open and close in cron.
+    :raises TimeFormatException:
+    """
     _set_time_with_command(open_time, OPEN_COMMAND)
     _set_time_with_command(close_time, CLOSE_COMMAND)
 

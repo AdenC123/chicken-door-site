@@ -16,7 +16,8 @@
   - `"success":` true if door is opening, false if door could not be opened
   - `"delay":` time motor will move for or 0 if unsuccessful, integer
 - `POST /close` closes the door, same JSON as open
-- `POST /time` updates times with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string split by a colon
+- `POST /times` updates times with JSON `"openTime"` and `"closeTime"` times formatted in 24hr, with 4 digits as string split by a colon.
+  Returns `"success":` `false` or `true`.
 - `GET /state` returns JSON as follows:
   - `"open":` `null` if unknown state, `true` if open, `false` if closed
   - `"moving":` `true` or `false`

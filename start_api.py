@@ -1,9 +1,9 @@
 # Start the API for direct door control.
-from flask import Flask
+from flask import Flask, request
 import json
 
+import cron
 from door import Door
-
 
 # flask initialization
 app = Flask(__name__)
@@ -52,9 +52,21 @@ def get_state():
     return json.dumps({
         "open": door.is_open(),
         "moving": door.is_moving(),
-        "openTime": 0000,  # TODO get these from cron module
-        "closeTime": 0000
+        "openTime": cron.get_open_time(),
+        "closeTime": cron.get_close_time()
     })
+
+
+@app.route('/times', methods=['POST'])
+def set_times():
+    """Set the open and close times in cron."""
+    open_time = request.form.get("openTime")
+    close_time = request.form.get("closeTime")
+    try:
+        cron.set_times(open_time, close_time)
+        return json.dumps({"success": True})
+    except cron.TimeFormatException:
+        return json.dumps({"success": False})
 
 
 # start the api
