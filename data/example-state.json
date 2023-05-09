@@ -1,6 +1,6 @@
 {
   "open": true,
   "moving": false,
-  "openTime": "0800",
-  "closeTime": "2100"
+  "openTime": "08:00",
+  "closeTime": "21:00"
 }

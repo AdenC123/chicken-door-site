@@ -74,7 +74,11 @@ def set_times():
         })
     try:
         cron.set_times(open_time, close_time)
-        return json.dumps({"success": True})
+        return json.dumps({
+            "success": True,
+            "openTime": cron.get_open_time(),
+            "closeTime": cron.get_close_time()
+        })
     except cron.TimeFormatException as e:
         return json.dumps({
             "success": False,
