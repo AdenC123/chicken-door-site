@@ -2,8 +2,8 @@
 from flask import Flask, request
 import json
 
-import cron
-from door import Door
+import api.cron as cron
+from api.door import Door
 
 # flask initialization
 app = Flask(__name__)

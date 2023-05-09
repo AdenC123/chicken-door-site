@@ -30,7 +30,7 @@ def get_close_time():
 
 
 def _set_time_with_command(time: str, command: str):
-    # check format of times: must be exactly 4 digits
+    # check format of times: must be exactly 4 digits with colon
     if not re.search(r'^\d{2}:\d{2}$', time):
         raise TimeFormatException(time)
     # convert time to hours and minutes
@@ -40,7 +40,6 @@ def _set_time_with_command(time: str, command: str):
         raise TimeFormatException(time)
 
     with CronTab(user=True) as cron:
-        job = None
         try:
             # use the first job with the command
             job = next(cron.find_command(command=command))

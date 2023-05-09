@@ -1,4 +1,4 @@
-import cron
+import api.cron as cron
 
 # should be None
 print(cron.get_open_time())

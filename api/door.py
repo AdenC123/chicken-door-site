@@ -2,15 +2,18 @@ import threading
 import RPi.GPIO as GPIO
 import time
 
+# motor pins
 MOTOR_FORWARD = 24
 MOTOR_BACKWARD = 23
 MOTOR_ENABLE = 25
-MOTOR_DELAY = 15  # time to run in seconds
+
+# time to run in seconds
+MOTOR_DELAY = 15
 
 
 class Door:
     def __init__(self):
-        """Creates the Door that is not moving and stops it"""
+        """Creates the Door that is not moving"""
         # set up fields
         self._is_moving = False
         self._is_open = None  # unknown state when app starts
@@ -33,7 +36,8 @@ class Door:
         """Returns whether the door is currently open, or None if unknown"""
         return self._is_open
 
-    def get_delay(self):
+    @staticmethod
+    def get_delay():
         """Returns the amount of time the motor runs for when opening/closing"""
         return MOTOR_DELAY
 
@@ -56,5 +60,3 @@ class Door:
         GPIO.cleanup()
         self._is_moving = False
         print("motor stopped")
-
-
