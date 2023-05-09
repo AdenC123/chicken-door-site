@@ -26,6 +26,6 @@
 Problem: Wifi does not stay connected in the long term (about a day).
 TODO: wait until disconnection, then run `journalctl | grep wlan`
 Steps tried:
-- [x] Disable fast roaming on router: https://github.com/raspberrypi/linux/issues/3849
+- [x] WORKED Disable fast roaming on router: https://github.com/raspberrypi/linux/issues/3849
 - [ ] Set up cron job to reboot when network unreachable
 - [ ] Debug undervolting issues
