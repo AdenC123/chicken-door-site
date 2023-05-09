@@ -55,4 +55,12 @@ def _get_time_with_command(command: str):
             job = next(cron.find_command(command=command))
         except StopIteration:
             return None
-        return str(job.hour) + ":" + str(job.minute)
+        hour = str(job.hour)
+        minute = str(job.minute)
+        # add leading zeroes
+        if len(hour) == 1:
+            hour = "0" + hour
+        if len(minute) == 1:
+            minute = "0" + minute
+
+        return hour + ":" + minute
