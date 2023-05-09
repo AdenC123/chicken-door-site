@@ -32,7 +32,7 @@ def _set_time_with_command(time: str, command: str):
         raise TimeFormatException(time)
     # convert time to hours and minutes
     hour = int(time[0:2])
-    minute = int(time[2:4])
+    minute = int(time[3:5])
     if hour >= 24 or minute >= 60:
         raise TimeFormatException(time)
 
