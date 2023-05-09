@@ -16,12 +16,12 @@ def set_times(open_time: str, close_time: str):
     _set_time_with_command(close_time, CLOSE_COMMAND)
 
 
-def get_open_time() -> str | None:
+def get_open_time():
     """Get the current opening time from cron, or None if there is no time."""
     return _get_time_with_command(OPEN_COMMAND)
 
 
-def get_close_time() -> str:
+def get_close_time():
     """Get the current closing time from cron, or None if there is no time."""
     return _get_time_with_command(CLOSE_COMMAND)
 
@@ -49,7 +49,7 @@ def _set_time_with_command(time: str, command: str):
         job.minute.on(minute)
 
 
-def _get_time_with_command(command: str) -> str | None:
+def _get_time_with_command(command: str):
     with CronTab(user=True) as cron:
         try:
             job = next(cron.find_command(command=command))
