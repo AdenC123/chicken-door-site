@@ -55,4 +55,4 @@ def _get_time_with_command(command: str) -> str | None:
             job = next(cron.find_command(command=command))
         except StopIteration:
             return None
-        return f'{job.hour}:{job.minute}'
+        return str(job.hour) + ":" + str(job.minute)
