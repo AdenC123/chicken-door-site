@@ -1,5 +1,6 @@
 ## TODO
 - [ ] Flask server with API on door pi
+  - Store current door state as JSON so open/close data persists
 - [ ] [DNS server](https://www.howtogeek.com/devops/how-to-run-your-own-dns-server-on-your-local-network/) on Pi to make connection easier
 - [ ] Redo website with responsive functionality and API interaction
 - [ ] Access from outer internet- password entry
@@ -24,3 +25,7 @@
 ## Wifi troubleshooting
 Problem: Wifi does not stay connected in the long term (about a day).
 TODO: wait until disconnection, then run `journalctl | grep wlan`
+Steps tried:
+- [x] Disable fast roaming on router: https://github.com/raspberrypi/linux/issues/3849
+- [ ] Set up cron job to reboot when network unreachable
+- [ ] Debug undervolting issues
