@@ -60,18 +60,26 @@ def get_state():
 @app.route('/times', methods=['POST'])
 def set_times():
     """Set the open and close times in cron."""
-    open_time = request.form.get("openTime")
-    close_time = request.form.get("closeTime")
+    open_time = request.json.get("openTime")
+    close_time = request.json.get("closeTime")
     if open_time is None:
-        return json.dumps({"error": "Request data does not contain openTime"})
+        return json.dumps({
+            "success": False,
+            "error": "Request data does not contain openTime"
+        })
     if close_time is None:
-        return json.dumps({"error": "Request data does not contain closeTime"})
+        return json.dumps({
+            "success": False,
+            "error": "Request data does not contain closeTime"
+        })
     try:
         cron.set_times(open_time, close_time)
         return json.dumps({"success": True})
     except cron.TimeFormatException as e:
-        msg = "Time is in incorrect format: " + e.args[0]
-        return json.dumps({"error": msg})
+        return json.dumps({
+            "success": False,
+            "error": "Time is in incorrect format: " + e.args[0]
+        })
 
 
 # start the api
