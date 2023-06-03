@@ -4,30 +4,55 @@
 - [ ] [DNS server](https://www.howtogeek.com/devops/how-to-run-your-own-dns-server-on-your-local-network/) on Pi to make connection easier
 - [ ] Access from outer internet- password entry
 
-## Materials list
-- [x] Door control raspberry pi in chicken coop
-- [x] [Linear actuator](https://www.amazon.com/ECO-LLC-Acutator-Electric-Actuator/dp/B08HQRNGYM) for door control
-- [x] [12v AC adapter](https://www.amazon.com/Kastar-Adapter-5-52-5mm-Wireless-Security/dp/B003TUMDWG) to power linear actuator
-- [x] [H-bridge for motor control](https://www.amazon.com/Qunqi-Controller-Module-Stepper-Arduino/dp/B014KMHSW6)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Door API
-- `POST /open` opens the door, returns JSON with:
-  - `"success":` boolean, true if door is opening, false if door could not be opened
-  - `"delay":` integer, time motor will move for or 0 if unsuccessful
-- `POST /close` closes the door, same JSON as open
-- `POST /times` updates times, request body must include:
-  - `"openTime":` 24 hour time, must be 4 digits and a colon. Ex. `"0800"`, `"2145"`
-  - `"closeTime":` same format
-  - Returns `"success":` true or false with an optional error message at `"error"`.
-- `GET /state` returns JSON as follows:
-  - `"open":` `null` if unknown state, `true` if open, `false` if closed
-  - `"moving":` boolean
-  - `"openTime"` and `"closeTime":` times formatted as above
+### `npm run build`
 
-## Wifi troubleshooting
-Problem: Wifi does not stay connected in the long term (about a day).
-TODO: wait until disconnection, then run `journalctl | grep wlan`
-Steps tried:
-- [x] WORKED Disable fast roaming on router: https://github.com/raspberrypi/linux/issues/3849
-- [ ] Set up cron job to reboot when network unreachable
-- [ ] Debug undervolting issues
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
